@@ -1,0 +1,3 @@
+nuget.exe
+CredentialProvider.VSS.exe
+/Microsoft.VisualStudio.Services.NuGet.CredentialProvider*/*
