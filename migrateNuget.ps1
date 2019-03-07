@@ -6,7 +6,7 @@ function Get-PackageExist {
 }
 
 $nugetDownloadLink = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
-$output = "nuget.exe"
+$output = Join-Path (Get-Location) "nuget.exe"
 $credentialProviderNugetId = "Microsoft.VisualStudio.Services.NuGet.CredentialProvider"
 
 $wc = New-Object System.Net.WebClient
@@ -27,8 +27,8 @@ Write-Host $sources
 
 $path = Read-Host "Please input the path of the txt containing the nuget package to be upload. Or the folder containing the nuget packages: "
 if (Test-Path -Path $path -PathType Container){
-    Get-ChildItem -Include *.nupkg -Recurse | Sort-Object LastWriteTime -Descending| Select-Object -ExpandProperty FullName > nugetList.txt
-    $path = Get-ChildItem -Include nugetList.txt | Select-Object -ExpandProperty FullName -First 1
+    Get-ChildItem $path -Include *.nupkg -Recurse | Sort-Object LastWriteTime -Descending| Select-Object -ExpandProperty FullName > nugetList.txt
+    $path = Get-ChildItem -Filter nugetList.txt | Select-Object -ExpandProperty FullName -First 1
 }
 
 $path = $path.Trim()
